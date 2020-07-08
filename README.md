@@ -22,6 +22,6 @@ The IEE 754 standard for floating-point numbers presents the existence of negati
 
 ## References
 1. Knuth, Donald Ervin. _Sorting and Searching_. Boston [u.a.]: Addison-Wesley, 2007.
-2. Standards.ieee.org. 2020. 754-2019 - IEEE Standard For Floating-Point Arithmetic. [online] Available at: (<https://standards.ieee.org/content/ieee-standards/en/standard/754-2019.html>)[<https://standards.ieee.org/content/ieee-standards/en/standard/754-2019.html>]
+2. Standards.ieee.org. 2019. 754-2019 - IEEE Standard For Floating-Point Arithmetic. [online] Available at: [<https://standards.ieee.org/content/ieee-standards/en/standard/754-2019.html>]
 
 
