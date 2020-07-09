@@ -8,10 +8,10 @@ First year assignment submission for module SE1FA15: Fundamentals and Applicatio
 ## Description
 The basis for the code written here is the Bubble Sort. This is a simple sorting algorithm which looks at adjacent elements starting from left to right, compares them and switches if the first element it larger. It is named so because "large elements bubble up to their proper position" (Knuth, 2007, p.106).
 
-The IEE 754 standard for floating-point numbers presents the existence of negative and positive zero in computer arithmetic, where the former can be thought of by considering a small magnitude positive number that tends down to zero; and the latter could be achieved by a small magnitude negative number tending upwards to zero. Most programs will define them as equal by numerical comparison, however this program will display results in the following order:
+The IEEE 754 standard for floating-point numbers presents the existence of negative and positive zero in computer arithmetic, where the former can be thought of by considering a small magnitude positive number that tends down to zero; and the latter could be achieved by a small magnitude negative number tending upwards to zero. Most programs will define them as equal by numerical comparison, however this program will display results in the following order:
 
 ```
-1. Negative Inifinity
+1. Negative Infinity
 2. Negative Numbers
 3. Negative Zero
 4. Positive Zero
