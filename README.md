@@ -17,6 +17,7 @@ The IEEE 754 standard for floating-point numbers presents the existence of negat
 4. Positive Zero
 5. Positive Values
 6. Positive Infinity
+7. All Not-a-Number (NaNs)
 ```
 
 
