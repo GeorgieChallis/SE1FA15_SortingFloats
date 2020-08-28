@@ -4,6 +4,8 @@
 #include <vector>
 #include <string>
 
+#include  "CustomFloat.h"
+
 using namespace std;
 
 union makeFloat { //Union to change parts of float via ints
@@ -17,10 +19,12 @@ union makeFloat { //Union to change parts of float via ints
 
 time_t clockVar;
 
-void GenerateNaNs();
 vector<float>SortAll(vector<float> &input);
 
 int main() {
+    time(&clockVar);
+    srand((unsigned int)clockVar); //use rand() for random value
+    
     cout << "==========================================================================" << endl;
     cout << "\t SE1FA15 - Assignment 1: Sorting Floating Point Numbers in C++" << endl;
     cout << "==========================================================================" << endl << endl;
@@ -36,68 +40,34 @@ int main() {
 //Q3
     cout << "\n\n--- Q3: Sort lists of different sizes ---";
         //a: List of 5 values
-    vec = { 1.2f, 3.6f, 0.99f, 5, 2.1f };  //Enter values to be sorted
+    vec = { 1.2f, 3.6f, .99f, 5, 2.1f };  //Enter values to be sorted
     sorted_vec = SortAll(vec);
         //b: List of 10 values
-    vector<float> vec2 = { 1.2f, 3.6f, 0.99f, 5, 2.1f, 9.8f, 0.0009f, 5.54f, 3.18f, 37 };
+    vector<float> vec2 = { 1.2f, 3.6f, .99f, 5, 2.1f, 9.8f, 0.0009f, 5.54f, 3.18f, 37 };
     vector<float> sorted_vec2 = SortAll(vec2);
         //c: List of 15 values
-    vector<float> vec3 = { 1.2f, 3.6f, 0.99f, 5, 2.1f, 9.8f, 0.0009f, 5.54f, 3.18f, 37, 12.1f, -0.0f, 4.444f, 0.008f, 6.66f };
+    vector<float> vec3 = { 1.2f, 3.6f, .99f, 5, 2.1f, 9.8f, 0.0009f, 5.54f, 3.18f, 37, 12.1f, -0.0f, 4.444f, 0.008f, 6.66f };
     vector<float> sorted_vec3 = SortAll(vec3);
 
 //Q4
     cout << "\n\n--- Q4: Generate a minus zero floating point object that is not identical to zero ---";
-    makeFloat PosZero = { 0 };
-    makeFloat NegZero = { 0 };
-    PosZero.sign = 0;
-    NegZero.sign = 1;
-
-    cout << "\n PosZero = "        << PosZero.fl;
-    cout << "\n\t Sign bit : " << PosZero.sign;
-    cout << "\n\t Exponent : " << PosZero.exponent;
-    cout << "\n\t Mantissa : " << PosZero.mantissa;
-    cout << "\n NegZero = "       << NegZero.fl;
-    cout << "\n\t Sign bit : " << NegZero.sign;
-    cout << "\n\t Exponent : " << NegZero.exponent;
-    cout << "\n\t Mantissa : " << NegZero.mantissa <<endl;
+    
+    CustomFloat PosZero("PosZero", 0, 0, 0);
+    CustomFloat NegZero("NegZero", 0, 0, 1);
+    PosZero.Print();
+    NegZero.Print();
 
 // Q5 and Q6: Generate on Not a Number (NaN)
     cout << "\n\n--- Q5/Q6: Generate multiple different Not a Numbers (NaNs) ---";
-    makeFloat PosNaN; //Generate a positive NaN
-    PosNaN.exponent = 0xff; //0xff for NaN/inf
-    PosNaN.mantissa = rand(); // 1-4194303 qNan, 8388607 sNan, 0 and 8388608 inf
-    PosNaN.sign = 0;
-    
-    makeFloat NegNaN; //Generate a negative NaN
-    NegNaN.exponent = 0xff;
-    NegNaN.mantissa = rand();
-    NegNaN.sign = 1;
-    
-    makeFloat newNan1;
-    newNan1.exponent = 0xff;
-    newNan1.mantissa = rand();
-    
-    makeFloat newNan2;
-    newNan2.exponent = 0xff;
-    newNan2.mantissa = rand();
-    newNan2.sign = 0;
-    
-    cout << "\n NaN1 = " << PosNaN.fl;
-    cout << "\n\t Sign bit : " << PosNaN.sign;
-    cout << "\n\t Exponent : " << PosNaN.exponent;
-    cout << "\n\t Mantissa : " << PosNaN.mantissa;
-    cout << "\n NaN2 = " << NegNaN.fl;
-    cout << "\n\t Sign bit : " << NegNaN.sign;
-    cout << "\n\t Exponent : " << NegNaN.exponent;
-    cout << "\n\t Mantissa : " << NegNaN.mantissa;
-    cout << "\n NaN3 = " << newNan1.fl;
-    cout << "\n Sign bit : " << newNan1.sign;
-    cout << "\n\t Exponent : " << newNan1.exponent;
-    cout << "\n\t Mantissa : " << newNan1.mantissa;
-    cout << "\n NaN4 = " << newNan2.fl;
-    cout << "\n\t Sign bit : " << newNan2.sign;
-    cout << "\n\t Exponent : " << newNan2.exponent;
-    cout << "\n\t Mantissa : " << newNan2.mantissa << endl;
+    CustomFloat PosNaN("N1", rand(), 0xff, 0);
+    CustomFloat NegNaN("N2", rand(), 0xff, 1);
+    CustomFloat N3("N3", rand(), 0xff, rand()%2);
+    CustomFloat N4("N4", rand(), 0xff, rand()%2);
+        
+    PosNaN.Print();
+    NegNaN.Print();
+    N3.Print();
+    N4.Print();
     
     cin.get();
 }
@@ -149,28 +119,3 @@ vector<float>SortAll(vector<float> &input) {
     }
 }
 
-void GenerateNaNs() {
-
-    time(&clockVar);
-    srand((unsigned int)clockVar); //use rand() for random value
-
-    int rand1 = rand();
-    int rand2 = rand();
-    int rand3 = rand();
-
-    if (rand1 > rand2) {
-        rand3 = (rand1 / rand2);
-    }
-    else  rand3 = (rand2 / rand3);
-
-    makeFloat PosNaN; //Generate a positive NaN
-    PosNaN.exponent = 0xff; //0xff for NaN/inf
-    PosNaN.mantissa = rand(); // 1 to 4194303 for qNan, 4194304 to 8388607 for sNan, 0 and 8388608 is inf
-    PosNaN.sign = 0;
-
-    makeFloat NegNaN; //Generate a negative NaN
-    NegNaN.exponent = 0xff;
-    NegNaN.mantissa = rand();
-    NegNaN.sign = 1;
-
-}
