@@ -31,6 +31,7 @@ class CustomFloat{
         void SetMantissa(unsigned int m);
         void SetExponent(unsigned int e);
         void SetSign(unsigned int s);
+        float GetFloat();
         void Print();
 };
 

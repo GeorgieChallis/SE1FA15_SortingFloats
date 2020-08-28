@@ -41,6 +41,10 @@ void CustomFloat::SetExponent(unsigned int e){
 void CustomFloat::SetSign(unsigned int s){
     myFloat.sign = s;
 }
+
+float CustomFloat::GetFloat(){
+    return myFloat.fl;
+}
 void CustomFloat::Print(){
     std::cout << "\n " << name  << " = " << myFloat.fl;
     std::cout << "\n\t Sign bit : " << myFloat.sign;

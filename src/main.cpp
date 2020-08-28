@@ -63,6 +63,9 @@ int main() {
     CustomFloat NegNaN("N2", rand(), 0xff, 1);
     CustomFloat N3("N3", rand(), 0xff, rand()%2);
     CustomFloat N4("N4", rand(), 0xff, rand()%2);
+    
+    CustomFloat PosInf("Inf", 8388608, 0xff, 0);
+    CustomFloat NegInf("-Inf", 8388608, 0xff,1);
         
     PosNaN.Print();
     NegNaN.Print();
@@ -90,32 +93,44 @@ vector<float>SortAll(vector<float> &input) {
             cout << input[i] << " ";
 
         //start = clock(); // Start time count for algorithm
-        if (input.size() > 1) { //Check for vec of 0 or 1
-            for (i = 0; i < input.size(); i++) {
-                flag = 0; //flag remains 0 if no swaps made
-                for (j = 0; j < input.size() - 1; j++) {
-                    if (isnan(input[j])) {
-                        auto it = input.begin() + j;
-                        rotate(it, it + 1, input.end());
-                    }
-
-                    if (input[j] > input[j + 1]) {
+        
+        if (input.size() < 2) return input; //Check for vec of 0 or 1
+        
+        long size = input.size();
+        for (i = 0; i < size; i++) {
+            flag = 0; //flag remains 0 if no swaps made
+            for (j = 0; j < size - 1; j++) {
+                if (isnan(input[j])) {
+                    auto it = input.begin() + j;
+                    rotate(it, it + 1, input.end());
+                    size--;
+                }
+                
+                else if (input[j] == 0 && input[j+1] == 0) {
+                    if (signbit(input[j])){ // If Negative Zero, swap
                         temp = input[j + 1];
                         input[j + 1] = input[j];
                         input[j] = temp;
                         flag = 1; //swap made, so continue
                     }
                 }
-                if (flag == 0) break; //no swaps = vec is sorted
-                //time = (clock() - start) / (double)CLOCKS_PER_SEC; // Calculate time taken
-            }
 
-            cout << "\nOutput: ";
-            for (i = 0; i < input.size(); i++) // Print all values of sorted vec
-                cout << input[i] << " ";
-            cout << endl;
+                else if (input[j] > input[j + 1]) {
+                    temp = input[j + 1];
+                    input[j + 1] = input[j];
+                    input[j] = temp;
+                    flag = 1; //swap made, so continue
+                }
+            }
+            if (flag == 0) break; //no swaps = vec is sorted
+            //time = (clock() - start) / (double)CLOCKS_PER_SEC; // Calculate time taken
         }
-        return input;
+
+        cout << "\nOutput: ";
+        for (i = 0; i < input.size(); i++) // Print all values of sorted vec
+            cout << input[i] << " ";
+        cout << endl;
     }
+    return input;
 }
 
